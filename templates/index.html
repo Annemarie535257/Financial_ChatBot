@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial ChatBot - AI-Powered Customer Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .chat-container {
+            transition: all 0.3s ease-in-out;
+        }
+        .chat-message {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .typing-indicator {
+            display: none;
+        }
+        .typing-indicator.active {
+            display: block;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .floating-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .chat-window {
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .chat-window.open {
+            transform: translateY(0);
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .chat-input-area {
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+        .chat-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message.bot {
+            justify-content: flex-start;
+        }
+        .message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        .message.bot .message-content {
+            background: white;
+            color: #374151;
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 5px;
+        }
+        .chat-toggle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <i data-lucide="bot" class="w-6 h-6"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold">Financial ChatBot</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#features" class="hover:text-blue-200 transition-colors">Features</a>
+                    <a href="#about" class="hover:text-blue-200 transition-colors">About</a>
+                    <a href="#contact" class="hover:text-blue-200 transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-5xl font-bold mb-6">AI-Powered Financial Support</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                Get instant, intelligent answers to your mortgage, loan, and financial questions. 
+                Our advanced AI chatbot provides 24/7 support with professional, accurate responses.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="openChat()" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                    Try ChatBot Now
+                </button>
+                <button class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold text-gray-800 mb-4">Why Choose Our ChatBot?</h3>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Powered by advanced AI technology trained on thousands of financial conversations
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="clock" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4">24/7 Availability</h4>
+                    <p class="text-gray-600">
+                        Get instant answers to your financial questions anytime, anywhere. 
+                        No waiting for business hours or customer service queues.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4">Expert Knowledge</h4>
+                    <p class="text-gray-600">
+                        Trained on thousands of professional financial conversations. 
+                        Provides accurate, reliable information about mortgages, loans, and banking.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4">Lightning Fast</h4>
+                    <p class="text-gray-600">
+                        Get comprehensive answers in seconds. Our AI processes your questions 
+                        and provides detailed, helpful responses instantly.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h3 class="text-4xl font-bold text-gray-800 mb-8">About Our AI Technology</h3>
+                <p class="text-lg text-gray-600 mb-8">
+                    Our Financial ChatBot is powered by Google's advanced FLAN-T5 language model, 
+                    specifically fine-tuned on a comprehensive dataset of financial customer support interactions. 
+                    With over 31,000 training examples, our AI understands the nuances of financial conversations 
+                    and provides professional, accurate responses.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-12">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-xl font-semibold mb-4 text-blue-600">Advanced NLP</h4>
+                        <p class="text-gray-600">
+                            Built on state-of-the-art transformer architecture with 60 million parameters, 
+                            optimized for understanding and generating financial content.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-xl font-semibold mb-4 text-green-600">Domain Expertise</h4>
+                        <p class="text-gray-600">
+                            Specialized training on mortgage applications, loan management, payment processing, 
+                            and all aspects of financial customer support.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-4xl font-bold text-gray-800 mb-8">Ready to Get Started?</h3>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Experience the future of financial customer support. Try our AI chatbot today 
+                and see how it can help with your financial questions.
+            </p>
+            <button onclick="openChat()" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
+                Start Chatting Now
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                    <i data-lucide="bot" class="w-5 h-5"></i>
+                </div>
+                <span class="text-xl font-bold">Financial ChatBot</span>
+            </div>
+            <p class="text-gray-400 mb-4">
+                AI-Powered Financial Customer Support
+            </p>
+            <p class="text-sm text-gray-500">
+                © 2024 Financial ChatBot. Built with advanced AI technology for better customer experience.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Widget -->
+    <div class="floating-chat">
+        <!-- Chat Toggle Button -->
+        <button id="chatToggle" onclick="toggleChat()" class="chat-toggle">
+            <i id="chatIcon" data-lucide="message-circle" class="w-7 h-7"></i>
+        </button>
+        
+        <!-- Chat Window -->
+        <div id="chatWindow" class="chat-window">
+            <div class="chat-header">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <i data-lucide="bot" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Financial Assistant</h4>
+                        <p class="text-sm opacity-80">AI-Powered Support</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-white hover:text-gray-200">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div id="chatMessages" class="chat-messages">
+                <div class="message bot">
+                    <div class="message-content">
+                        👋 Hello! I'm your AI financial assistant. I can help you with questions about mortgages, loans, payments, and other financial topics. How can I assist you today?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="message bot">
+                    <div class="message-content">
+                        <div class="flex space-x-1">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <div class="flex items-center space-x-3">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        class="chat-input" 
+                        placeholder="Ask about mortgages, loans, payments..."
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button onclick="sendMessage()" class="send-btn">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        let chatOpen = false;
+        
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const chatIcon = document.getElementById('chatIcon');
+            
+            chatOpen = !chatOpen;
+            
+            if (chatOpen) {
+                chatWindow.classList.add('open');
+                chatIcon.setAttribute('data-lucide', 'x');
+            } else {
+                chatWindow.classList.remove('open');
+                chatIcon.setAttribute('data-lucide', 'message-circle');
+            }
+            
+            lucide.createIcons();
+        }
+        
+        function openChat() {
+            if (!chatOpen) {
+                toggleChat();
+            }
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                const data = await response.json();
+                
+                // Hide typing indicator
+                hideTypingIndicator();
+                
+                if (data.success) {
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                }
+                
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('Sorry, I\'m having trouble connecting right now. Please try again later.', 'bot');
+            }
+        }
+        
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender} chat-message`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = text;
+            
+            messageDiv.appendChild(contentDiv);
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').classList.add('active');
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').classList.remove('active');
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
