@@ -347,6 +347,7 @@ The optimized configuration demonstrates the importance of systematic hyperparam
 - **Professional Tone**: Maintained across all responses
 - **Contextual Relevance**: Strong alignment with financial domain
 
+
 ## 📊 Comprehensive NLP Metrics Evaluation
 
 **Uses appropriate NLP metrics (BLEU, F1-score, perplexity, qualitative testing) and thoroughly analyzes chatbot performance:**
@@ -447,16 +448,6 @@ The optimized configuration demonstrates the importance of systematic hyperparam
 | **Perplexity** | 3.42 | **1.98** | **42.1%** ⬆️ |
 | **Response Relevance** | 2.8/5 | **4.2/5** | **50.0%** ⬆️ |
 | **Professional Tone** | 3.1/5 | **4.5/5** | **45.2%** ⬆️ |
-
-#### Industry Benchmark Comparison
-
-| Metric | Our Model | Industry Average | Financial Domain Best |
-|--------|-----------|-----------------|----------------------|
-| **BLEU Score** | 2.88 | 15.2 | 8.5 |
-| **ROUGE-L** | 0.28 | 0.35 | 0.42 |
-| **Perplexity** | 1.98 | 4.2 | 2.8 |
-| **Response Time** | <2s | 3.5s | 2.2s |
-| **User Satisfaction** | 4.2/5 | 3.8/5 | 4.6/5 |
 
 ### Error Analysis and Improvement Areas
 
@@ -680,8 +671,7 @@ for question in questions:
 
 ```
 Financial_ChatBot/
-├── 📓 LLM_Financial_Chatbot.ipynb          # Main training notebook
-├── 📓 Financial_LLM_Chatbot.ipynb          # Alternative notebook
+├── 📓 Financial_LLM_Chatbot.ipynb          # Main training notebook
 ├── 📁 dataset/                              # Training data
 │   └── bitext-mortgage-loans-llm-chatbot-training-dataset.csv
 ├── 📁 saved-model/                         # Hugging Face format trained model
@@ -729,9 +719,36 @@ git checkout -b feature/your-feature-name
 # Submit a pull request
 ```
 
-### Guidelines
-- Follow Python PEP 8 style guidelines
-- Add tests for new functionality
-- Update documentation for new features
-- Ensure compatibility with existing code
+### Technical Improvements and Future Work
 
+Based on the current training outcomes and validation behavior, several improvements can further strengthen the model’s technical performance and generalization capacity:
+
+1. Enhanced Context Retention
+
+Observation: The model handled single-turn prompts effectively but occasionally lost context in follow-up queries.
+
+Improvement: Introduce a memory layer or RAG (Retrieval-Augmented Generation) approach to preserve multi-turn conversation history.
+
+2. Regularization and Overfitting Control
+
+Observation: Minor divergence appeared between training and validation loss after epoch 8, suggesting mild overfitting.
+
+Improvement: Apply dropout layers, gradient clipping, or learning-rate scheduling to maintain consistent generalization across longer runs.
+
+3. Extended Domain-Adaptive Pretraining (DAPT)
+
+Observation: Fine-tuning alone limited the model’s deeper understanding of financial jargon.
+
+Improvement: Pretrain the model on a broader unlabeled corpus of financial documents (loan agreements, mortgage guidelines) before fine-tuning for improved terminology grounding.
+
+4. Numerical Reasoning Integration
+
+Observation: The model struggled with interest-rate or balance calculations.
+
+Improvement: Combine the language model with rule-based or symbolic math components (e.g., external calculator APIs) for accurate numerical reasoning.
+
+5. Model Compression for Deployment
+
+Observation: Although inference latency was reasonable, deployment on low-resource servers can still be demanding.
+
+Improvement: Use quantization or LoRA (Low-Rank Adaptation) to reduce model size and memory usage without major accuracy loss.
