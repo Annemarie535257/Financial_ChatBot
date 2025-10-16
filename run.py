@@ -15,20 +15,22 @@ def main():
     
     # Check if model files exist
     model_found = False
-    for root, dirs, files in os.walk('saved_models'):
-        if 'financial_chatbot_model.keras' in files:
-            model_found = True
-            break
+    for root, dirs, files in os.walk('saved-model'):
+        if 'config.json' in files and 'tokenizer_config.json' in files:
+            has_tf_model = any('tf_model' in f.lower() and '.h5' in f.lower() for f in files)
+            if has_tf_model:
+                model_found = True
+                break
     
     if not model_found:
-        print("⚠️  Warning: No trained model found in saved_models directory")
+        print("⚠️  Warning: No trained model found in saved-model directory")
         print("   The chatbot will run in demo mode")
         print("   To train a model, run the Jupyter notebook first")
     else:
-        print("✅ Model files found")
+        print("✅ Model files found (HuggingFace format)")
     
     print("\n🚀 Starting Flask server...")
-    print("📍 Server will be available at: http://localhost:5000")
+    print("📍 Server will be available at: http://localhost:8080")
     print("🛑 Press Ctrl+C to stop the server")
     print("=" * 50)
     
@@ -41,7 +43,7 @@ def main():
                 print("❌ Failed to load model, running in demo mode")
         
         # Start Flask app
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        app.run(debug=True, host='0.0.0.0', port=8080)
         
     except KeyboardInterrupt:
         print("\n🛑 Server stopped by user")
