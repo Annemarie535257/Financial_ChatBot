@@ -4,6 +4,7 @@ A sophisticated Large Language Model (LLM) chatbot designed specifically for fin
 
 ## 📋 Table of Contents
 - [Project Overview](#-project-overview)
+- [Video Demo](#-video-demo)
 - [Dataset](#-dataset)
 - [Performance Metrics](#-performance-metrics)
 - [Quick Start](#-quick-start)
@@ -52,6 +53,10 @@ The chatbot serves as a bridge between customers and financial institutions, pro
 - 🎯 **Domain-Specific**: Specialized for mortgage and loan-related questions
 - 📈 **Performance Monitoring**: Detailed metrics and evaluation dashboard
 - 🔧 **Easy Deployment**: Simple model loading and inference pipeline
+
+## 🎥 Video Demo
+
+**The link** : 
 
 ## 📊 Dataset
 
