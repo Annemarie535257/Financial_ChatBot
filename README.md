@@ -23,14 +23,14 @@ A sophisticated Large Language Model (LLM) chatbot designed specifically for fin
 
 This project implements a state-of-the-art financial chatbot using fine-tuned transformer models to provide intelligent, context-aware responses to customer inquiries about mortgages, loans, and financial services. The chatbot is built using Google's FLAN-T5 model, which has been specifically trained on a comprehensive dataset of financial customer support interactions.
 
-**Clearly defines the chatbot's purpose and aligns it with a specific domain:** This Financial ChatBot is purposefully designed and aligned with the financial services domain, specifically focusing on mortgage and loan customer support. The chatbot's purpose is clearly defined as providing professional, accurate, and helpful responses to customer inquiries related to:
+This Financial ChatBot is purposefully designed and aligned with the financial services domain, specifically focusing on mortgage and loan customer support. The chatbot's purpose is clearly defined as providing professional, accurate, and helpful responses to customer inquiries related to:
 
 - **Mortgage Applications & Processing**: Guiding customers through the mortgage application process, document requirements, and approval procedures
 - **Loan Management**: Assisting with loan balance inquiries, payment options, and account management
 - **Financial Guidance**: Providing information about interest rates, refinancing options, and financial planning
 - **Customer Support**: Addressing common questions about billing, statements, and account modifications
 
-**Justifies the relevance and necessity of the chatbot:** The development of this specialized financial chatbot addresses several critical needs in the financial services industry:
+The development of this specialized financial chatbot addresses several critical needs in the financial services industry:
 
 1. **24/7 Availability**: Traditional customer support operates during business hours, leaving customers with urgent questions without immediate assistance. This chatbot provides round-the-clock support for time-sensitive financial inquiries.
 
