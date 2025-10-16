@@ -56,7 +56,7 @@ The chatbot serves as a bridge between customers and financial institutions, pro
 
 ## 🎥 Video Demo
 
-**The link** : 
+**The link** : https://youtu.be/1dwXxDE6VAM
 
 ## 📊 Dataset
 
