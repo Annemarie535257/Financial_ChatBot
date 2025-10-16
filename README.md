@@ -612,71 +612,18 @@ for question in questions:
 ## 💬 Example Conversations
 
 ### Example 1: Mortgage Application
-**Customer**: "How do I apply for a mortgage?"
-**Chatbot**: "I'd be happy to help you with your mortgage application! Here's what you need to do:
+<img width="1339" height="634" alt="image" src="https://github.com/user-attachments/assets/2afcd6cb-2c82-474d-9038-749026ea6a82" />
 
-1. **Gather Required Documents**: Collect your income statements, tax returns, bank statements, and employment verification
-2. **Check Your Credit Score**: Review your credit report and score to ensure accuracy
-3. **Research Lenders**: Compare rates and terms from multiple lenders
-4. **Complete Application**: Fill out the mortgage application with accurate information
-5. **Submit Documentation**: Provide all required documents to your chosen lender
-6. **Underwriting Process**: Wait for the lender to review and approve your application
+<img width="1344" height="628" alt="image" src="https://github.com/user-attachments/assets/7b5e2bf2-e37a-4fa3-a2bd-4757f934687d" />
 
-The entire process typically takes 30-45 days. Would you like more specific information about any of these steps?"
+
 
 ### Example 2: Loan Balance Inquiry
-**Customer**: "How can I check my current loan balance?"
-**Chatbot**: "I can help you check your loan balance! You have several convenient options:
-
-**Online Methods:**
-- Log into your account on our website or mobile app
-- Navigate to the 'Account Summary' or 'Loan Details' section
-- Your current balance will be displayed
-
-**Other Options:**
-- Call our customer service line at 1-800-LOAN-INFO
-- Visit any of our branch locations
-- Check your monthly statement
-
-Your current balance includes your principal amount and any accrued interest. Is there anything specific about your loan balance you'd like to know more about?"
-
-### Example 3: Payment Assistance
-**Customer**: "I'm having trouble making my mortgage payment this month. What are my options?"
-**Chatbot**: "I understand that financial situations can change unexpectedly. We're here to help you find a solution that works for your situation. Here are some options available:
-
-**Immediate Assistance:**
-- **Payment Plan**: We can set up a temporary payment plan to help you catch up
-- **Forbearance**: Short-term pause or reduction in payments
-- **Loan Modification**: Permanent changes to your loan terms
-
-**Next Steps:**
-1. Contact our hardship assistance team at 1-800-HELP-NOW
-2. Gather documentation of your financial hardship
-3. We'll work with you to find the best solution
-
-**Important**: The sooner you reach out, the more options we have available. We're committed to helping you stay in your home. Would you like me to connect you with our hardship assistance team?"
+<img width="1343" height="618" alt="image" src="https://github.com/user-attachments/assets/1fa18296-2f41-41b2-9dae-c66bbed84b0f" />
 
 ### Example 4: Refinancing Inquiry
-**Customer**: "Should I refinance my mortgage?"
-**Chatbot**: "Refinancing can be a great financial decision in the right circumstances. Let me help you evaluate if it makes sense for your situation:
+<img width="1354" height="639" alt="image" src="https://github.com/user-attachments/assets/a6a0a836-c924-40f4-ab2f-c2fb4223127a" />
 
-**When Refinancing Makes Sense:**
-- Current rates are significantly lower than your existing rate
-- You can reduce your monthly payment
-- You want to shorten your loan term
-- You need to access home equity
-
-**Considerations:**
-- **Closing Costs**: Typically 2-5% of loan amount
-- **Break-Even Point**: Time to recover closing costs through savings
-- **Your Timeline**: How long you plan to stay in the home
-
-**To Get Personalized Advice:**
-- Check current rates on our website
-- Use our refinance calculator
-- Speak with one of our loan officers
-
-Would you like me to help you calculate potential savings or connect you with a loan specialist?"
 
 ## 🏗️ Model Architecture
 
