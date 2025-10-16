@@ -746,8 +746,8 @@ Financial_ChatBot/
 ```
 
 ### Key Files Description
-- **`LLM_Financial_Chatbot.ipynb`**: Main notebook with enhanced visualizations and Google Colab compatibility
-- **`Financial_LLM_Chatbot.ipynb`**: Alternative notebook version
+
+- **`Financial_LLM_Chatbot.ipynb`**: Main notebook with enhanced visualizations and Google Colab compatibility
 - **`saved-model/`**: Hugging Face format trained model directory with all necessary files for inference
 - **`config.json`**: Model architecture and configuration parameters
 - **`tf_model.h5`**: TensorFlow model weights in Hugging Face format
